@@ -54,7 +54,7 @@ require (
 	github.com/ipfs/go-unixfs v0.0.1
 	github.com/ipfs/go-verifcid v0.0.1
 	github.com/ipfs/hang-fds v0.0.1
-	github.com/ipfs/interface-go-ipfs-core v0.0.3-0.20190311123657-8da6e5f68c0c
+	github.com/ipfs/interface-go-ipfs-core v0.0.3-0.20190311145840-510c157b7cae
 	github.com/ipfs/iptb v1.4.0
 	github.com/ipfs/iptb-plugins v0.0.1
 	github.com/jbenet/go-is-domain v0.0.0-20160119110217-ba9815c809e0
@@ -114,3 +114,5 @@ require (
 	gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2 // indirect
 	gotest.tools/gotestsum v0.3.3
 )
+
+
