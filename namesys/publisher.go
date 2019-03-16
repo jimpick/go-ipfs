@@ -136,6 +136,14 @@ func (p *IpnsPublisher) GetPublished(ctx context.Context, id peer.ID, checkRouti
 	if err := proto.Unmarshal(value, e); err != nil {
 		return nil, err
 	}
+	if e.GetSequence() == 0 && checkRouting {
+		eNewer := new(pb.IpnsEntry)
+		ipnskey := ipns.RecordKey(id)
+		value, err = p.routing.GetValue(ctx, ipnskey)
+		if err := proto.Unmarshal(value, eNewer); err == nil {
+			e = eNewer
+		}
+	}
 	return e, nil
 }
 
