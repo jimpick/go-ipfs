@@ -2,13 +2,14 @@ package provider
 
 import (
 	"context"
-	"github.com/ipfs/go-cid"
-	"github.com/ipfs/go-datastore"
-	"github.com/ipfs/go-datastore/namespace"
-	"github.com/ipfs/go-datastore/query"
 	"math"
 	"strconv"
 	"strings"
+
+	cid "github.com/ipfs/go-cid"
+	datastore "github.com/ipfs/go-datastore"
+	namespace "github.com/ipfs/go-datastore/namespace"
+	query "github.com/ipfs/go-datastore/query"
 )
 
 // Queue provides a durable, FIFO interface to the datastore for storing cids
@@ -100,11 +101,11 @@ func (q *Queue) nextEntry() (datastore.Key, cid.Cid) {
 // Run dequeues and enqueues when available.
 func (q *Queue) work() {
 	go func() {
-
 		for {
 			k, c := q.nextEntry()
 			var dequeue chan cid.Cid
 
+			// If c != cid.Undef set dequeue and attempt write, otherwise wait for enqueue
 			if c != cid.Undef {
 				dequeue = q.dequeue
 			}
