@@ -112,10 +112,13 @@ require (
 	golang.org/x/sys v0.0.0-20190626221950-04f50cda93cb
 	golang.org/x/tools v0.0.0-20190621195816-6e04913cbbac // indirect
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
+	google.golang.org/appengine v1.4.0 // indirect
 	gopkg.in/cheggaaa/pb.v1 v1.0.28
 	gotest.tools/gotestsum v0.3.4
 )
 
 replace github.com/golangci/golangci-lint => github.com/mhutchinson/golangci-lint v1.17.2-0.20190819125825-d18f2136e32b
+
+replace github.com/libp2p/go-libp2p-core => ../go-libp2p-core-jimpick
 
 go 1.12
