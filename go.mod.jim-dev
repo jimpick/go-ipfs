@@ -119,12 +119,12 @@ require (
 
 replace github.com/golangci/golangci-lint => github.com/mhutchinson/golangci-lint v1.17.2-0.20190819125825-d18f2136e32b
 
-replace github.com/libp2p/go-libp2p => github.com/jimpick/go-libp2p v0.3.0
+replace github.com/libp2p/go-libp2p => ../go-libp2p-jimpick
 
-replace github.com/libp2p/go-libp2p-core => github.com/jimpick/go-libp2p-core v0.2.3-0.20190901052815-50e31bbe2acb
+replace github.com/libp2p/go-libp2p-core => ../go-libp2p-core-jimpick
 
-replace github.com/libp2p/go-libp2p-kad-dht => github.com/jimpick/go-libp2p-kad-dht v0.2.0
+replace github.com/libp2p/go-libp2p-kad-dht => ../go-libp2p-kad-dht-jimpick
 
-replace github.com/ipfs/go-bitswap => github.com/jimpick/go-bitswap v0.1.9-0.20190903030532-361c8d4d74a9
+replace github.com/ipfs/go-bitswap => ../go-bitswap-jimpick
 
 go 1.12
