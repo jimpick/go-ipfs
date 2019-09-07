@@ -8,6 +8,10 @@ We're happy to announce go-ipfs X.Y.Z, bla bla...
 
 <List of items with PRs and/or Issues to be considered for this release>
 
+# 🚢 Estimated shipping date
+
+<Date this release will ship on if everything goes to plan (week beginning...)>
+
 ## 🔦 Highlights
 
 < top highlights for this release notes >
@@ -87,6 +91,10 @@ Checklist:
     - [ ] [Reddit](https://reddit.com/r/ipfs)
     - [ ] [discuss.ipfs.io](https://discuss.ipfs.io/c/announcements)
     - [ ] Announce it on the [IPFS Users Mailing List](https://groups.google.com/forum/#!forum/ipfs-users)
+- [ ] **Post-Release**
+  - [ ] Bump the version in `version.go` to `vX.(Y+1).0-dev`.
+  - [ ] Create an issue using this release issue template for the _next_ release.
+  - [ ] Make sure any last-minute changelog updates from the blog post make it back into the CHANGELOG.
 
 ## ❤️ Contributors
 
@@ -103,4 +111,3 @@ Would you like to contribute to the IPFS project and don't know how? Well, there
 ## ⁉️ Do you have questions?
 
 The best place to ask your questions about IPFS, how it works and what you can do with it is at [discuss.ipfs.io](http://discuss.ipfs.io). We are also available at the `#ipfs` channel on Freenode, which is also [accessible through our Matrix bridge](https://riot.im/app/#/room/#freenode_#ipfs:matrix.org).
-
