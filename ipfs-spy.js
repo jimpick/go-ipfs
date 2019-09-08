@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 const http = require('http')
+const speedometer = require('speedometer')
+const prettyBytes = require('pretty-bytes')
 
 let cidDhtLookups = {}
 let savedChunk = ''
@@ -17,6 +19,7 @@ async function run () {
 
   const sessions = {}
   const keysToSessions = {}
+  const speedometers = {}
   let errors = []
 
   setInterval(render, 1000)
@@ -50,6 +53,13 @@ async function run () {
     const lines = []
     const now = Date.now()
     const watchSessions = []
+
+    // Purge old speedometers
+    for (const peerId in speedometer) {
+      if (speedometers[peerId].last + 10000 < now) {
+        delete speedometers[peerId]
+      }
+    }
     for (const uuid of Object.keys(sessions)) {
       watchSessions.push([sessions[uuid].id, uuid])
     }
@@ -124,7 +134,16 @@ async function run () {
         let state = ''
         if (received > 0 || !peer.dhtError) {
           state = `Blocks: ${received}` +
-          (duplicates ? ` + ${duplicates} duplicates` : '')
+          (duplicates ? ` + ${duplicates} dup` : '')
+          if (speedometers[peerId] && !done) {
+            function clamp (num) { // Filter out noise
+              return num > 200 ? num : 0
+            }
+            const inSpeed = clamp(speedometers[peerId].inMeter())
+            const outSpeed = clamp(speedometers[peerId].outMeter())
+            state += `, In: ${prettyBytes(inSpeed)}ps / ` +
+              `Out: ${prettyBytes(outSpeed)}ps`
+          }
         } else {
           state = 'Connection error'
         }
@@ -332,6 +351,22 @@ async function run () {
               }
             }
           }
+        }
+      }
+      if (system === 'jimnet') {
+        const { peer, event: evt, proto, size } = event
+        if (proto.match(/bitswap/)) {
+          const now = Date.now()
+          if (!speedometers[peer]) {
+            speedometers[peer] = {
+              inMeter: speedometer(),
+              outMeter: speedometer(),
+              created: now
+            }
+          }
+          if (evt === 'in') speedometers[peer].inMeter(size)
+          if (evt === 'out') speedometers[peer].outMeter(size)
+          speedometers[peer].last = now
         }
       }
     } catch (e) {

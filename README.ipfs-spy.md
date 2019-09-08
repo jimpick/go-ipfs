@@ -33,9 +33,10 @@ make build
 
 Run it in another terminal
 
-Requires Node.js (no extra dependencies)
+Requires Node.js
 
 ```
+npm install
 node ipfs-spy.js
 ```
 

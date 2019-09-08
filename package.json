@@ -1,0 +1,28 @@
+{
+  "name": "ipfs-spy",
+  "version": "1.0.0",
+  "description": "go-ipfs with extra tracing + ipfs-spy",
+  "main": "ipfs-spy.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimpick/go-ipfs.git"
+  },
+  "keywords": [],
+  "author": "Jim Pick (@jimpick)",
+  "license": "MIT/Apache-2 (Permissive License Stack)",
+  "bugs": {
+    "url": "https://github.com/jimpick/go-ipfs/issues"
+  },
+  "homepage": "https://github.com/jimpick/go-ipfs#readme",
+  "dependencies": {
+    "pretty-bytes": "^5.3.0",
+    "speedometer": "^1.1.0"
+  }
+}
