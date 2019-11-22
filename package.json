@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/jimpick/go-ipfs#readme",
   "dependencies": {
+    "nanobus": "^4.4.0",
     "pretty-bytes": "^5.3.0",
-    "speedometer": "^1.1.0"
+    "speedometer": "^1.1.0",
+    "ws": "^7.2.0"
   }
 }

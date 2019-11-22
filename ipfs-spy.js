@@ -1,7 +1,12 @@
 #!/usr/bin/env node
+
 const http = require('http')
 const speedometer = require('speedometer')
 const prettyBytes = require('pretty-bytes')
+const WebSocket = require('ws')
+const nanobus = require('nanobus')
+
+const bus = nanobus()
 
 let cidDhtLookups = {}
 let savedChunk = ''
@@ -22,7 +27,21 @@ async function run () {
   const speedometers = {}
   let errors = []
 
+  const wss = new WebSocket.Server({ port: 9123 })
+
+  wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(message) {
+      errors.push('received: ' + message)
+    })
+
+    ws.send('something')
+    bus.on('send', data => {
+      ws.send(JSON.stringify(data))
+    })
+  })
+
   setInterval(render, 1000)
+  setInterval(sendData, 1000)
 
   while (true) {
     await fetch()
@@ -170,6 +189,10 @@ async function run () {
     }
     console.log('\u001b[2J\u001b[0;0H')
     console.log(lines.join('\n'))
+  }
+
+  async function sendData () {
+    bus.emit('send', { date: Date.now() })
   }
 
   function processChunk (chunk) {
