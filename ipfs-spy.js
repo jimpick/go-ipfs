@@ -192,7 +192,25 @@ async function run () {
   }
 
   async function sendData () {
-    bus.emit('send', { date: Date.now() })
+    const data = {}
+    const peerSet = new Set()
+    for (const uuid in sessions) {
+      const session = sessions[uuid]
+      const {
+        keys,
+        firstKey,
+        peers,
+        done,
+        incomingAdvertisedCount,
+        incomingAdvertisedPeers
+      } = session
+      for (const peerId in peers) {
+        peerSet.add(peerId)
+      }
+    }
+    data.date = Date.now()
+    data.peers = [...peerSet]
+    bus.emit('send', data)
   }
 
   function processChunk (chunk) {
