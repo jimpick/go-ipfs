@@ -201,7 +201,8 @@ async function run () {
     const data = {
       nodeId
     }
-    const peerSet = new Set()
+    const peersData = {}
+    let blockCount = 0
     for (const uuid in sessions) {
       const session = sessions[uuid]
       const {
@@ -212,12 +213,21 @@ async function run () {
         incomingAdvertisedCount,
         incomingAdvertisedPeers
       } = session
+      blockCount += keys.size
       for (const peerId in peers) {
-        peerSet.add(peerId)
+        const peer = peers[peerId]
+        const duplicates = peer.duplicateKeys ? peer.duplicateKeys.size : 0
+        const received = peer.receivedKeys ?
+          peer.receivedKeys.size - duplicates : 0
+        peersData[peerId] = {
+          received,
+          duplicates
+        }
       }
     }
     data.date = Date.now()
-    data.peers = [...peerSet]
+    data.blockCount = blockCount
+    data.peers = peersData
     bus.emit('send', data)
   }
 
