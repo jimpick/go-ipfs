@@ -5,6 +5,7 @@ const speedometer = require('speedometer')
 const prettyBytes = require('pretty-bytes')
 const WebSocket = require('ws')
 const nanobus = require('nanobus')
+const ipfsClient = require('ipfs-http-client')
 
 const bus = nanobus()
 
@@ -14,6 +15,9 @@ let wantlistSize = 0
 
 async function run () {
   console.log('Starting...')
+
+  const ipfs = ipfsClient()
+  const { id: nodeId } = await ipfs.id()
 
   const options = {
     hostname: 'localhost',
@@ -79,6 +83,8 @@ async function run () {
         delete speedometers[peerId]
       }
     }
+
+    lines.push(`ID: ${nodeId}`)
     for (const uuid of Object.keys(sessions)) {
       watchSessions.push([sessions[uuid].id, uuid])
     }
@@ -192,7 +198,9 @@ async function run () {
   }
 
   async function sendData () {
-    const data = {}
+    const data = {
+      nodeId
+    }
     const peerSet = new Set()
     for (const uuid in sessions) {
       const session = sessions[uuid]
